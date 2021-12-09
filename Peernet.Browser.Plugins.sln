@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C65A2B3-FFC5-48A5-899B-37E74EA35EBC}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peernet.Browser.Plugins.MediaPlayer", "Peernet.Browser.Plugins.MediaPlayer\Peernet.Browser.Plugins.MediaPlayer.csproj", "{EDC5F6D5-22BD-4649-B603-322F2A25C01D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDC5F6D5-22BD-4649-B603-322F2A25C01D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC5F6D5-22BD-4649-B603-322F2A25C01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC5F6D5-22BD-4649-B603-322F2A25C01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC5F6D5-22BD-4649-B603-322F2A25C01D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB6917F4-A7AF-4A3F-BFAC-1C250AA21CE0}
+	EndGlobalSection
+EndGlobal
