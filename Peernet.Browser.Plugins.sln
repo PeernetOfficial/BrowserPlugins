@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peernet.Browser.Plugins.MediaPlayer", "Peernet.Browser.Plugins.MediaPlayer\Peernet.Browser.Plugins.MediaPlayer.csproj", "{EDC5F6D5-22BD-4649-B603-322F2A25C01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peernet.Browser.Plugins.MediaPlayer", "Peernet.Browser.Plugins.MediaPlayer\Peernet.Browser.Plugins.MediaPlayer.csproj", "{EDC5F6D5-22BD-4649-B603-322F2A25C01D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
