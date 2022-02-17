@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <Reference Include="Peernet.SDK">
-      <HintPath>..\..\PeernetSDK\SDK\Peernet.SDK\bin\Release\net5.0\Peernet.SDK.dll</HintPath>
+      <HintPath>..\lib\Peernet.SDK.dll</HintPath>
     </Reference>
   </ItemGroup>
 
