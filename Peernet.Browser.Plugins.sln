@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C65A2B3-FFC5-48A5-899B-37E74EA35EBC}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peernet.Browser.Plugins.MediaPlayer", "Peernet.Browser.Plugins.MediaPlayer\Peernet.Browser.Plugins.MediaPlayer.csproj", "{EDC5F6D5-22BD-4649-B603-322F2A25C01D}"
