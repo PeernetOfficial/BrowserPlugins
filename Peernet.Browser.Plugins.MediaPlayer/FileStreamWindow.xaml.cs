@@ -46,6 +46,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
         private void PreviewOnLoaded(object sender, RoutedEventArgs e)
         {
             Preview.MediaPlayer = ((FileStreamViewModel)DataContext).MediaPlayer;
+            Preview.MediaPlayer.Play();
         }
 
         private void StopButton_OnClick(object sender, RoutedEventArgs e)
