@@ -29,7 +29,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer.Services
 
         public bool IsSupported(ApiFile file)
         {
-            if (file.Type is not LowLevelFileType.Video)
+            if (file?.Type is not LowLevelFileType.Video)
             {
                 return false;
             }
