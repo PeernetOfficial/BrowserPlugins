@@ -27,6 +27,16 @@ namespace Peernet.Browser.Plugins.MediaPlayer.Services
             new FileStreamWindow(viewModel).Show();
         }
 
+        public bool IsSupported(ApiFile file)
+        {
+            if (file.Type is not LowLevelFileType.Video)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private Uri GetFileSource(ApiFile file)
         {
             // ISettingsManager.ApiKey
