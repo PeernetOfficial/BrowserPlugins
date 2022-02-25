@@ -1,7 +1,7 @@
-﻿using Peernet.Browser.Plugins.MediaPlayer.ViewModels;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using Peernet.Browser.Plugins.MediaPlayer.ViewModels;
 
 namespace Peernet.Browser.Plugins.MediaPlayer
 {
@@ -18,7 +18,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             DataContext = fileStreamViewModel;
             MouseDown += Window_MouseDown;
             //  WindowStartupLocation = App.Current.MainWindow.WindowStartupLocation;
-            //Preview.Loaded += PreviewOnLoaded;
+            Preview.Loaded += PreviewOnLoaded;
             Unloaded += Preview_Unloaded;
         }
 
@@ -29,29 +29,29 @@ namespace Peernet.Browser.Plugins.MediaPlayer
 
         private void PauseButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //Preview.MediaPlayer.Pause();
+            Preview.MediaPlayer.Pause();
         }
 
         private void PlayButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //Preview.MediaPlayer.Play();
+            Preview.MediaPlayer.Play();
         }
 
         private void Preview_Unloaded(object sender, RoutedEventArgs e)
         {
-            //Preview.MediaPlayer.Stop();
-            //Preview.MediaPlayer.Dispose();
+            Preview.MediaPlayer.Stop();
+            Preview.MediaPlayer.Dispose();
         }
 
         private void PreviewOnLoaded(object sender, RoutedEventArgs e)
         {
-            //Preview.MediaPlayer = ((FileStreamViewModel)DataContext).MediaPlayer;
-            //Preview.MediaPlayer.Play();
+            Preview.MediaPlayer = ((FileStreamViewModel)DataContext).MediaPlayer;
+            Preview.MediaPlayer.Play();
         }
 
         private void StopButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //Preview.MediaPlayer.Stop();
+            Preview.MediaPlayer.Stop();
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
