@@ -6,4 +6,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\VideoPlayer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\VideoSlider.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
 </Project>
