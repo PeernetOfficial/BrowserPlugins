@@ -6,6 +6,7 @@ using Peernet.SDK.Client.Http;
 using Peernet.SDK.Common;
 using Peernet.SDK.Models.Domain.Common;
 using Peernet.SDK.Models.Plugins;
+using System.Threading.Tasks;
 
 namespace Peernet.Browser.Plugins.MediaPlayer.Services
 {
@@ -19,11 +20,11 @@ namespace Peernet.Browser.Plugins.MediaPlayer.Services
         }
 
         // Open Window on Execute
-        public void Execute(ApiFile file)
+        public async Task Execute(ApiFile file)
         {
             var source = GetFileSource(file);
             var viewModel = new FileStreamViewModel();
-            viewModel.Prepare(source);
+            await viewModel.Prepare(source);
             new FileStreamWindow(viewModel).Show();
         }
 
