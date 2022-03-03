@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Peernet.Browser.Plugins.MediaPlayer.ViewModels;
+using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Peernet.Browser.Plugins.MediaPlayer.ViewModels;
 
 namespace Peernet.Browser.Plugins.MediaPlayer
 {
@@ -10,6 +11,9 @@ namespace Peernet.Browser.Plugins.MediaPlayer
     /// </summary>
     public partial class FileStreamWindow : Window
     {
+        private bool _isOverBottomTool;
+        private long _videoLength;
+
         public FileStreamWindow(FileStreamViewModel fileStreamViewModel)
         {
             ContentRendered += Window_ContentRendered;
@@ -20,11 +24,102 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             //  WindowStartupLocation = App.Current.MainWindow.WindowStartupLocation;
             Preview.Loaded += PreviewOnLoaded;
             Unloaded += Preview_Unloaded;
+            PART_MouseOver_Area.MouseEnter += PART_MouseOver_Area_MouseEnter;
+            PART_MouseOver_Area.MouseLeave += PART_MouseOver_Area_MouseLeave;
         }
 
         private void Close_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void MediaPlayer_LengthChanged(object sender, LibVLCSharp.Shared.MediaPlayerLengthChangedEventArgs e)
+        {
+            this._videoLength = e.Length;
+            this.SetVideoTotalTime(e.Length);
+        }
+
+        private void MediaPlayer_Paused(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                this.PART_Btn_Play.Visibility = Visibility.Visible;
+                this.PART_Btn_Pause.Visibility = Visibility.Collapsed;
+            });
+        }
+
+        private void MediaPlayer_Playing(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                this.PART_Btn_Play.Visibility = Visibility.Collapsed;
+                this.PART_Btn_Pause.Visibility = Visibility.Visible;
+                this.PART_Video_Time.Visibility = Visibility.Visible;
+                this.PART_Slider.Visibility = Visibility.Visible;
+                this.PART_Btn_Stop.IsEnabled = true;
+
+                VisualStateManager.GoToState(this, "HideVideoTool", true);
+            });
+        }
+
+        private void MediaPlayer_PositionChanged(object sender, LibVLCSharp.Shared.MediaPlayerPositionChangedEventArgs e)
+        {
+            this.PART_Slider.Dispatcher.BeginInvoke(() => this.PART_Slider.Value = e.Position * _videoLength);
+        }
+
+        private void MediaPlayer_Stopped(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                this.PART_Btn_Play.Visibility = Visibility.Visible;
+                this.PART_Btn_Pause.Visibility = Visibility.Collapsed;
+                this.PART_Video_Time.Visibility = Visibility.Collapsed;
+                this.PART_Slider.Visibility = Visibility.Collapsed;
+
+                this.PART_Btn_Stop.IsEnabled = false;
+
+                VisualStateManager.GoToState(this, "ShowVideoTool", true);
+            });
+        }
+
+        private void PART_MouseOver_Area_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Preview.MediaPlayer.IsPlaying)
+            {
+                _isOverBottomTool = true;
+                VisualStateManager.GoToState(this, "ShowVideoTool", true);
+            }
+        }
+
+        private void PART_MouseOver_Area_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (Preview.MediaPlayer.IsPlaying)
+            {
+                _isOverBottomTool = false;
+                Task.Delay(1000).ContinueWith((t) =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        if (!this._isOverBottomTool)
+                        {
+                            VisualStateManager.GoToState(this, "HideVideoTool", true);
+                        }
+                    });
+                });
+            }
+        }
+
+        private void PART_Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            this.Preview.Dispatcher.BeginInvoke(() =>
+            {
+                this.Preview.MediaPlayer.Time = (long)this.PART_Slider.Value;
+            });
+        }
+
+        private void PART_Volume_Slider_DropValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            this.Preview.MediaPlayer.Volume = (int)(e.NewValue * 100 / PART_Volume_Slider.Maximum);
         }
 
         private void PauseButton_OnClick(object sender, RoutedEventArgs e)
@@ -46,12 +141,48 @@ namespace Peernet.Browser.Plugins.MediaPlayer
         private void PreviewOnLoaded(object sender, RoutedEventArgs e)
         {
             Preview.MediaPlayer = ((FileStreamViewModel)DataContext).MediaPlayer;
+            SetInitialVolume();
+            SubscribeToEvents();
             Preview.MediaPlayer.Play();
+        }
+
+        private void SetInitialVolume()
+        {
+            var initialValue = 50;
+            this.Preview.MediaPlayer.Volume = initialValue;
+            this.PART_Volume_Slider.Value = (PART_Volume_Slider.Maximum * initialValue) / 100;
+        }
+
+        private void SetVideoTotalTime(long newLength)
+        {
+            if (this.PART_Time_Total != null)
+            {
+                Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    this.PART_Time_Total.Text = TimeSpan.FromMilliseconds(newLength).ToString("hh\\:mm\\:ss");
+                });
+            }
+            if (this.PART_Slider != null)
+            {
+                Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    this.PART_Slider.Maximum = newLength;
+                });
+            }
         }
 
         private void StopButton_OnClick(object sender, RoutedEventArgs e)
         {
             Preview.MediaPlayer.Stop();
+        }
+
+        private void SubscribeToEvents()
+        {
+            Preview.MediaPlayer.Playing += MediaPlayer_Playing;
+            Preview.MediaPlayer.Paused += MediaPlayer_Paused;
+            Preview.MediaPlayer.Stopped += MediaPlayer_Stopped;
+            Preview.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
+            Preview.MediaPlayer.PositionChanged += MediaPlayer_PositionChanged;
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
