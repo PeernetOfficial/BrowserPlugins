@@ -83,10 +83,8 @@
                                               Foreground="{StaticResource icon_normal_color}"
                                               Cursor="Hand" SnapsToDevicePixels="True"
                                               UseLayoutRounding="True"
-                                              Thumb.DragCompleted="PART_Slider_DragCompleted"
                                               IsMoveToPointEnabled="True"
-                                              IsVideoVisibleWhenPressThumb="False"
-                                               />
+                                              IsVideoVisibleWhenPressThumb="False" />
                         <Grid Grid.Row="1" Grid.ColumnSpan="6">
                             <TextBlock x:Name="PART_Video_Time" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0">
                                                 <Run x:Name="PART_Time_Current" />

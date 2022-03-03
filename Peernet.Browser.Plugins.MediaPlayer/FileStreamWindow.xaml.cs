@@ -26,11 +26,35 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             Unloaded += Preview_Unloaded;
             PART_MouseOver_Area.MouseEnter += PART_MouseOver_Area_MouseEnter;
             PART_MouseOver_Area.MouseLeave += PART_MouseOver_Area_MouseLeave;
+            PART_Slider.DropValueChanged += PART_Slider_DropValueChanged;
+        }
+
+        private void PART_Slider_DropValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            this.SetVideoCurrentTime(e.NewValue, true);
         }
 
         private void Close_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void SetVideoCurrentTime(double newPosition, bool isMoveToPoint = false)
+        {
+            if (this.PART_Slider != null)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.PART_Slider.Value = newPosition;
+                });
+            }
+            if (isMoveToPoint)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.Preview.MediaPlayer.Time = (long)newPosition;
+                });
+            }
         }
 
         private void MediaPlayer_LengthChanged(object sender, LibVLCSharp.Shared.MediaPlayerLengthChangedEventArgs e)
@@ -64,7 +88,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
 
         private void MediaPlayer_PositionChanged(object sender, LibVLCSharp.Shared.MediaPlayerPositionChangedEventArgs e)
         {
-            this.PART_Slider.Dispatcher.BeginInvoke(() => this.PART_Slider.Value = e.Position * _videoLength);
+            this.SetVideoCurrentTime(e.Position * _videoLength);
         }
 
         private void MediaPlayer_Stopped(object sender, EventArgs e)
@@ -107,14 +131,6 @@ namespace Peernet.Browser.Plugins.MediaPlayer
                     });
                 });
             }
-        }
-
-        private void PART_Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
-        {
-            this.Preview.Dispatcher.BeginInvoke(() =>
-            {
-                this.Preview.MediaPlayer.Time = (long)this.PART_Slider.Value;
-            });
         }
 
         private void PART_Volume_Slider_DropValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -183,6 +199,15 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             Preview.MediaPlayer.Stopped += MediaPlayer_Stopped;
             Preview.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
             Preview.MediaPlayer.PositionChanged += MediaPlayer_PositionChanged;
+            Preview.MediaPlayer.EndReached += MediaPlayer_EndReached;
+        }
+
+        private void MediaPlayer_EndReached(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                Preview.MediaPlayer.Stop();
+            });
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
