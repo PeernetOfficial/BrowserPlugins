@@ -8,8 +8,8 @@
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
-
-    <Style TargetType="{x:Type controls:PathButton}">
+    
+    <Style x:Key="BasePathButtonStyle" TargetType="{x:Type controls:PathButton}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Foreground" Value="#000000" />
@@ -64,4 +64,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type controls:PathButton}" BasedOn="{StaticResource BasePathButtonStyle}" />
 </ResourceDictionary>

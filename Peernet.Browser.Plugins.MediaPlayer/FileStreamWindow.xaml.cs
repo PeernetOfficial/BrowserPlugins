@@ -13,6 +13,15 @@ namespace Peernet.Browser.Plugins.MediaPlayer
     {
         private bool _isOverBottomTool;
         private long _videoLength;
+        
+        public bool IsMuted
+        {
+            get { return (bool)GetValue(IsMutedProperty); }
+            set { SetValue(IsMutedProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsMutedProperty =
+            DependencyProperty.Register("IsMuted", typeof(bool), typeof(FileStreamWindow), new PropertyMetadata(false));
 
         public FileStreamWindow(FileStreamViewModel fileStreamViewModel)
         {
@@ -21,7 +30,6 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             InitializeComponent();
             DataContext = fileStreamViewModel;
             MouseDown += Window_MouseDown;
-            //  WindowStartupLocation = App.Current.MainWindow.WindowStartupLocation;
             Preview.Loaded += PreviewOnLoaded;
             Unloaded += Preview_Unloaded;
             PART_MouseOver_Area.MouseEnter += PART_MouseOver_Area_MouseEnter;
@@ -165,8 +173,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
         private void SetInitialVolume()
         {
             var initialValue = 50;
-            this.Preview.MediaPlayer.Volume = initialValue;
-            this.PART_Volume_Slider.Value = (PART_Volume_Slider.Maximum * initialValue) / 100;
+            SetVolumeInPercentage(initialValue);
         }
 
         private void SetVideoTotalTime(long newLength)
@@ -226,6 +233,17 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             {
                 DragMove();
             }
+        }
+
+        private void PART_Btn_Volume_Click(object sender, RoutedEventArgs e)
+        {
+            Preview.MediaPlayer.ToggleMute();
+            IsMuted = Preview.MediaPlayer.Mute;
+        }
+
+        private void SetVolumeInPercentage(int percentage)
+        {
+            this.PART_Volume_Slider.Value = (PART_Volume_Slider.Maximum * percentage) / 100;
         }
     }
 }
