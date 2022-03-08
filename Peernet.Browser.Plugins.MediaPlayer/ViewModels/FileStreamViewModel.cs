@@ -1,13 +1,14 @@
 ﻿using LibVLCSharp.Shared;
+using Peernet.Browser.Plugins.MediaPlayer.ViewModels.Parameters;
+using Peernet.SDK.Models.Domain.Common;
 using Peernet.SDK.Models.Presentation;
-using System;
 using System.Threading.Tasks;
 
 namespace Peernet.Browser.Plugins.MediaPlayer.ViewModels
 {
-    public class FileStreamViewModel : GenericViewModelBase<Uri>
+    public class FileStreamViewModel : GenericViewModelBase<FileStreamViewModelParameter>
     {
-        public Uri Source { get; set; }
+        public LowLevelFileType FileType { get; set; }
 
         static FileStreamViewModel()
         {
@@ -16,13 +17,13 @@ namespace Peernet.Browser.Plugins.MediaPlayer.ViewModels
 
         public LibVLCSharp.Shared.MediaPlayer MediaPlayer { get; set; }
 
-        public override Task Prepare(Uri source)
+        public override Task Prepare(FileStreamViewModelParameter parameter)
         {
-            Source = source;
+            FileType = parameter.FileType;
             Core.Initialize();
 
             var libVlc = new LibVLC();
-            var media = new Media(libVlc, source);
+            var media = new Media(libVlc, parameter.Source);
             MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(media)
             {
                 EnableHardwareDecoding = true

@@ -35,6 +35,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             PART_MouseOver_Area.MouseEnter += PART_MouseOver_Area_MouseEnter;
             PART_MouseOver_Area.MouseLeave += PART_MouseOver_Area_MouseLeave;
             PART_Slider.DropValueChanged += PART_Slider_DropValueChanged;
+            PART_Volume_Slider.DropValueChanged += PART_Volume_Slider_DropValueChanged;
         }
 
         private void PART_Slider_DropValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -172,15 +173,16 @@ namespace Peernet.Browser.Plugins.MediaPlayer
         private void PreviewOnLoaded(object sender, RoutedEventArgs e)
         {
             Preview.MediaPlayer = ((FileStreamViewModel)DataContext).MediaPlayer;
-            SetInitialVolume();
             SubscribeToEvents();
+            SetInitialVolume();
             Preview.MediaPlayer.Play();
         }
 
         private void SetInitialVolume()
         {
             var initialValue = 50;
-            SetVolumeInPercentage(initialValue);
+            Preview.MediaPlayer.Volume = initialValue;
+            this.PART_Volume_Slider.Value = (PART_Volume_Slider.Maximum * initialValue) / 100;
         }
 
         private void SetVideoTotalTime(long newLength)
@@ -246,11 +248,6 @@ namespace Peernet.Browser.Plugins.MediaPlayer
         {
             Preview.MediaPlayer.ToggleMute();
             IsMuted = Preview.MediaPlayer.Mute;
-        }
-
-        private void SetVolumeInPercentage(int percentage)
-        {
-            this.PART_Volume_Slider.Value = (PART_Volume_Slider.Maximum * percentage) / 100;
         }
     }
 }

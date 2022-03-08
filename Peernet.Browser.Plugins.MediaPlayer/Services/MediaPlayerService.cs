@@ -24,7 +24,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer.Services
         {
             var source = GetFileSource(file);
             var viewModel = new FileStreamViewModel();
-            await viewModel.Prepare(source);
+            await viewModel.Prepare(new (source, file.Type));
             new FileStreamWindow(viewModel).Show();
         }
 

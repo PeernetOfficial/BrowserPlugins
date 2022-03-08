@@ -3,8 +3,9 @@
         xmlns:uc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
         xmlns:controls="clr-namespace:Peernet.Browser.Plugins.MediaPlayer.Controls"
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="Peernet.Browser.Plugins.MediaPlayer.FileStreamWindow"
+        xmlns:domain="clr-namespace:Peernet.SDK.Models.Domain.Common;assembly=Peernet.SDK"
         Width="500"
-        Height="420"
+        SizeToContent="Height"
         Top="100"
         Left="100"
         Background="{DynamicResource PreviewBackground}"
@@ -72,6 +73,16 @@
             </StackPanel>
             <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}">
                 <uc:VideoView x:Name="Preview" MinHeight="300" Background="Transparent" />
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding FileType}" Value="{x:Static domain:LowLevelFileType.Audio}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
             </Border>
             <Border x:Name="PART_MouseOver_Area" Grid.Row="2"
                                     Panel.ZIndex="1" Background="Transparent">
@@ -102,9 +113,9 @@
                                               Grid.Row="0"
                                               Grid.Column="1"
                                               Grid.ColumnSpan="3"
-                                              Background="Transparent"
                                               Foreground="{DynamicResource icon_normal_color}"
-                                              Cursor="Hand" SnapsToDevicePixels="True"
+                                              Cursor="Hand"
+                                              SnapsToDevicePixels="True"
                                               UseLayoutRounding="True"
                                               IsMoveToPointEnabled="True"
                                               IsVideoVisibleWhenPressThumb="False" />
@@ -161,16 +172,17 @@
                                     </controls:PathButton>
                                 </Grid>
                                 <controls:VideoSlider x:Name="PART_Volume_Slider"
-                                                      DecreaseColor="{StaticResource icon_normal_color}"
-                                                      Margin="10,0" VerticalAlignment="Stretch"
+                                                      Foreground="{DynamicResource icon_normal_color}"
+                                                      Margin="10,0"
+                                                      VerticalAlignment="Stretch"
                                                       BorderThickness="1"
                                                       IsMoveToPointEnabled="True"
                                                       IsVideoVisibleWhenPressThumb="False"
                                                       SnapsToDevicePixels="True"
                                                       UseLayoutRounding="True"
+                                                      Maximum="100"
                                                       Width="100"
-                                                      Cursor="Hand"
-                                                      DropValueChanged="PART_Volume_Slider_DropValueChanged" />
+                                                      Cursor="Hand"/>
                             </StackPanel>
                         </Grid>
                     </Grid>
