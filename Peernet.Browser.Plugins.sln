@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peernet.Browser.Plugins.MediaPlayer", "Peernet.Browser.Plugins.MediaPlayer\Peernet.Browser.Plugins.MediaPlayer.csproj", "{EDC5F6D5-22BD-4649-B603-322F2A25C01D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peernet.Browser.Plugins.TextViewer", "Peernet.Browser.Plugins.TextViewer\Peernet.Browser.Plugins.TextViewer.csproj", "{70CA1346-A92F-4CF3-9686-51DF54F266BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peernet.Browser.Plugins.TextViewer", "Peernet.Browser.Plugins.TextViewer\Peernet.Browser.Plugins.TextViewer.csproj", "{70CA1346-A92F-4CF3-9686-51DF54F266BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peernet.Browser.Plugins.ImageViewer", "Peernet.Browser.Plugins.ImageViewer\Peernet.Browser.Plugins.ImageViewer.csproj", "{10FB19B5-1E7A-452A-A8CD-594ED2492FCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{70CA1346-A92F-4CF3-9686-51DF54F266BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70CA1346-A92F-4CF3-9686-51DF54F266BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70CA1346-A92F-4CF3-9686-51DF54F266BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10FB19B5-1E7A-452A-A8CD-594ED2492FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10FB19B5-1E7A-452A-A8CD-594ED2492FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10FB19B5-1E7A-452A-A8CD-594ED2492FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10FB19B5-1E7A-452A-A8CD-594ED2492FCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

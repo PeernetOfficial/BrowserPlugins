@@ -49,6 +49,13 @@ namespace Peernet.Browser.Plugins.MediaPlayer
 
         private void SetVideoCurrentTime(double newPosition, bool isMoveToPoint = false)
         {
+            if (this.PART_Time_Current != null)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.PART_Time_Current.Text = TimeSpan.FromMilliseconds(newPosition).ToString("hh\\:mm\\:ss");
+                });
+            }
             if (this.PART_Slider != null)
             {
                 Application.Current.Dispatcher.Invoke(() =>

@@ -1,4 +1,4 @@
-﻿<Window x:Class="Peernet.Browser.Plugins.TextViewer.TextViewerWindow"
+﻿<Window x:Class="Peernet.Browser.Plugins.ImageViewer.ImageViewerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -31,40 +31,18 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-
     <Window.ContentTemplate>
         <DataTemplate>
             <Border BorderThickness="1">
                 <Border.BorderBrush>
                     <SolidColorBrush Opacity="0.2" Color="Black" />
                 </Border.BorderBrush>
-                    <Grid Margin="10">
-                    <TextBox 
-                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto"
-                            ScrollViewer.CanContentScroll="True"
-                            IsReadOnly="True"
-                            TextWrapping="Wrap"
-                            Background="Transparent"
-                            Foreground="{DynamicResource MainContentBrush}"
-                            FontFamily="Courier New"
-                            BorderThickness="0">
-                        <TextBox.Style>
-                            <Style TargetType="{x:Type TextBox}">
-                                <Setter Property="Text" Value="{Binding FileContent, UpdateSourceTrigger=PropertyChanged}" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding FileContent}" Value="{x:Null}">
-                                        <Setter Property="Text" Value="Empty file." />
-                                        <Setter Property="Foreground" Value="{DynamicResource LightGray2Brush}" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding FileContent}" Value="">
-                                        <Setter Property="Text" Value="Empty File." />
-                                        <Setter Property="Foreground" Value="{DynamicResource LightGray2Brush}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                <Grid Margin="10">
+                    <Image ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"
+                           ScrollViewer.CanContentScroll="True"
+                           Source="{Binding ImageSource}">
+                    </Image>
                 </Grid>
             </Border>
         </DataTemplate>

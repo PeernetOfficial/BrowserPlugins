@@ -4,7 +4,12 @@
     <TargetFramework>net6.0-windows</TargetFramework>
 	  <UseWPF>true</UseWPF>
   </PropertyGroup>
-
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>None</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	
   <ItemGroup>
     <PackageReference Include="LibVLCSharp.WPF" Version="3.6.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
