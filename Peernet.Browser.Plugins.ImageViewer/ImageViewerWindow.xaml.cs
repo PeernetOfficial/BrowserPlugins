@@ -17,8 +17,7 @@ namespace Peernet.Browser.Plugins.ImageViewer
             Initialized += Window_Initialized;
             InitializeComponent();
             MouseDown += Window_MouseDown;
-            Content = imageViewerViewModel;
-            Title = imageViewerViewModel.Title;
+            DataContext = imageViewerViewModel;
         }
 
         private void Close_OnClick(object sender, RoutedEventArgs e)

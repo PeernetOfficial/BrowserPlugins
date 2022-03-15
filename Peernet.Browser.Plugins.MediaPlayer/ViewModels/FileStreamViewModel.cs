@@ -10,6 +10,8 @@ namespace Peernet.Browser.Plugins.MediaPlayer.ViewModels
     {
         public LowLevelFileType FileType { get; set; }
 
+        public string FileName { get; set; }
+
         static FileStreamViewModel()
         {
             Core.Initialize();
@@ -20,13 +22,15 @@ namespace Peernet.Browser.Plugins.MediaPlayer.ViewModels
         public override Task Prepare(FileStreamViewModelParameter parameter)
         {
             FileType = parameter.FileType;
+            FileName = parameter.FileName;
             Core.Initialize();
 
             var libVlc = new LibVLC();
             var media = new Media(libVlc, parameter.Source);
             MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(media)
             {
-                EnableHardwareDecoding = true
+                EnableHardwareDecoding = true,
+                NetworkCaching = 300
             };
 
             return Task.CompletedTask;

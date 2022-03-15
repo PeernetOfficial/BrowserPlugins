@@ -16,8 +16,7 @@ namespace Peernet.Browser.Plugins.TextViewer
             Initialized += Window_Initialized;
             InitializeComponent();
             MouseDown += Window_MouseDown;
-            Content = textViewerViewModel;
-            Title = textViewerViewModel.Title;
+            DataContext = textViewerViewModel;
         }
 
         private void Close_OnClick(object sender, RoutedEventArgs e)

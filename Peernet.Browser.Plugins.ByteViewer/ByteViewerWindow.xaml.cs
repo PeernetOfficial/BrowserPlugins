@@ -17,8 +17,7 @@ namespace Peernet.Browser.Plugins.ImageViewer
             Initialized += Window_Initialized;
             InitializeComponent();
             MouseDown += Window_MouseDown;
-            Content = imageViewerViewModel;
-            Title = imageViewerViewModel.Title;
+            DataContext = imageViewerViewModel;
             Closed += ByteViewerWindow_Closed;
 
             // It is just to make sure WpfHexaEditor assembly got loaded
@@ -27,7 +26,7 @@ namespace Peernet.Browser.Plugins.ImageViewer
 
         private void ByteViewerWindow_Closed(object sender, EventArgs e)
         {
-            ((ByteViewerViewModel)Content).FileStream?.Dispose();
+            ((ByteViewerViewModel)DataContext).FileStream?.Dispose();
         }
 
         private void Close_OnClick(object sender, RoutedEventArgs e)

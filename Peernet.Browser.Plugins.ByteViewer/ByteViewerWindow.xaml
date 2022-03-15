@@ -32,16 +32,25 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Window.ContentTemplate>
-        <DataTemplate>
-            <Border BorderThickness="1">
-                <Border.BorderBrush>
-                    <SolidColorBrush Opacity="0.2" Color="Black" />
-                </Border.BorderBrush>
-                <Grid Margin="1">
-                    <hex:HexEditor Stream="{Binding FileStream}" Width="Auto" Height="Auto" />
-                </Grid>
-            </Border>
-        </DataTemplate>
-    </Window.ContentTemplate>
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="5" GlassFrameThickness="0" CaptionHeight="40" CornerRadius="0" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" HorizontalAlignment="Left" Margin="10" Background="Transparent" Foreground="{DynamicResource MainContentBrush}" BorderThickness="0" IsReadOnly="True" Text="{Binding Title}" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <Button Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource CloseButtonStyle}" Click="Close_OnClick" />
+        </Grid>
+        <Grid Grid.Row="1" Margin="1">
+            <hex:HexEditor Stream="{Binding FileStream}" Width="Auto" Height="Auto" />
+        </Grid>
+    </Grid>
 </Window>
