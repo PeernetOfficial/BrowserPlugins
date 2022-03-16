@@ -90,30 +90,32 @@
                 <TextBlock x:Name="PART_Video_Time" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Run.Foreground="{DynamicResource MainTextBrush}"><Run x:Name="PART_Time_Current" /><Run Text=" " /><Run Text=" / " /><Run Text=" " /><Run x:Name="PART_Time_Total" /></TextBlock>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <controls:PathButton x:Name="PART_Btn_Stop"
-                                                     DisabledPathColor="{StaticResource icon_disabled_color}"
-                                                     MouseOverPathColor="{StaticResource icon_hover_color}"
-                                                     NormalPathColor="{StaticResource icon_normal_color}"
-                                                     PathData="{StaticResource icon_stop}"
-                                                     PathWidth="11"
-                                                     PressedPathColor="{StaticResource icon_pressed_color}"
-                                                     Click="StopButton_OnClick" />
+                                         DisabledPathColor="{StaticResource icon_disabled_color}"
+                                         MouseOverPathColor="{StaticResource icon_hover_color}"
+                                         NormalPathColor="{StaticResource icon_normal_color}"
+                                         PathData="{StaticResource icon_stop}"
+                                         PathWidth="14"
+                                         PressedPathColor="{StaticResource icon_pressed_color}"
+                                         Click="StopButton_OnClick" />
                     <controls:PathButton x:Name="PART_Btn_Pause"
-                                         Margin="25,0,0,0"
+                                         Margin="7,0,0,0"
                                          DisabledPathColor="{StaticResource icon_disabled_color}"
                                          MouseOverPathColor="{StaticResource icon_hover_color}"
                                          NormalPathColor="{StaticResource icon_normal_color}"
                                          PathData="{StaticResource icon_pause}"
-                                         PathWidth="17"
+                                         PathWidth="18"
+                                         Padding="12, 6, 12, 6"
                                          PressedPathColor="{StaticResource icon_pressed_color}"
                                          Visibility="Visible"
                                          Click="PauseButton_OnClick" />
                     <controls:PathButton x:Name="PART_Btn_Play"
-                                         Margin="25,0,0,0"
+                                         Margin="7,0,0,0"
+                                         Padding="12, 6, 12, 6"
                                          DisabledPathColor="{StaticResource icon_disabled_color}"
                                          MouseOverPathColor="{StaticResource icon_hover_color}"
                                          NormalPathColor="{StaticResource icon_normal_color}"
                                          PathData="{StaticResource icon_play}"
-                                         PathWidth="17"
+                                         PathWidth="18"
                                          PressedPathColor="{StaticResource icon_pressed_color}"
                                          Click="PlayButton_OnClick" />
                 </StackPanel>
@@ -130,11 +132,11 @@
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=IsMuted, ElementName=FileStream, UpdateSourceTrigger=PropertyChanged}" Value="True">
                                             <Setter Property="PathData" Value="{StaticResource icon_volume_mute_large}" />
-                                            <Setter Property="PathWidth" Value="7" />
+                                            <Setter Property="PathWidth" Value="8" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Path=IsMuted, ElementName=FileStream, UpdateSourceTrigger=PropertyChanged}" Value="False">
                                             <Setter Property="PathData" Value="{StaticResource icon_volume_large}" />
-                                            <Setter Property="PathWidth" Value="11" />
+                                            <Setter Property="PathWidth" Value="14" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
