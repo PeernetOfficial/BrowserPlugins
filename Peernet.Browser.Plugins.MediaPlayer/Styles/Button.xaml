@@ -36,7 +36,9 @@
                             SnapsToDevicePixels="true" UseLayoutRounding="True">
                         <Path x:Name="path"
                               Width="{TemplateBinding PathWidth}"
-                              Margin="0,0,0,0" VerticalAlignment="Center"
+                              Margin="{TemplateBinding Margin}"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"
                               Data="{TemplateBinding PathData}"
                               Fill="{TemplateBinding NormalPathColor}"
                               Stretch="Uniform" />

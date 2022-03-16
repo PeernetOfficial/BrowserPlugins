@@ -10,34 +10,13 @@ namespace Peernet.Browser.Plugins.MediaPlayer
     /// </summary>
     public partial class FileStreamWindow : Window
     {
-        private long videoLength;
-        
-        public bool IsMuted
-        {
-            get { return (bool)GetValue(IsMutedProperty); }
-            set { SetValue(IsMutedProperty, value); }
-        }
-
-        public int Volume
-        {
-            get { return (int)GetValue(VolumeProperty); }
-            set { SetValue(VolumeProperty, value); }
-        }
+        public static readonly DependencyProperty IsMutedProperty =
+            DependencyProperty.Register("IsMuted", typeof(bool), typeof(FileStreamWindow), new PropertyMetadata(false));
 
         public static readonly DependencyProperty VolumeProperty =
             DependencyProperty.Register("Volume", typeof(int), typeof(FileStreamWindow), new PropertyMetadata(75, new PropertyChangedCallback(VolumeChangedCallback)));
 
-        public static readonly DependencyProperty IsMutedProperty =
-            DependencyProperty.Register("IsMuted", typeof(bool), typeof(FileStreamWindow), new PropertyMetadata(false));
-
-        private static void VolumeChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            FileStreamWindow videoPlayer = d as FileStreamWindow;
-            if (e.NewValue != null && videoPlayer != null && videoPlayer.Preview != null)
-            {
-                videoPlayer.Preview.MediaPlayer.Volume = (int)e.NewValue;
-            }
-        }
+        private long videoLength;
 
         public FileStreamWindow(FileStreamViewModel fileStreamViewModel)
         {
@@ -52,45 +31,47 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             PART_Slider.DropValueChanged += PART_Slider_DropValueChanged;
         }
 
-        private void PART_Slider_DropValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        public bool IsMuted
         {
-            this.SetVideoCurrentTime(e.NewValue, true);
+            get { return (bool)GetValue(IsMutedProperty); }
+            set { SetValue(IsMutedProperty, value); }
         }
 
+        public int Volume
+        {
+            get { return (int)GetValue(VolumeProperty); }
+            set { SetValue(VolumeProperty, value); }
+        }
+        private static void VolumeChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            FileStreamWindow videoPlayer = d as FileStreamWindow;
+            if (e.NewValue != null && videoPlayer != null && videoPlayer.Preview != null)
+            {
+                videoPlayer.Preview.MediaPlayer.Volume = (int)e.NewValue;
+            }
+        }
         private void Close_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void SetVideoCurrentTime(double newPosition, bool isMoveToPoint = false)
+        private void MediaPlayer_EndReached(object sender, EventArgs e)
         {
-            if (this.PART_Time_Current != null)
+            Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    this.PART_Time_Current.Text = TimeSpan.FromMilliseconds(newPosition).ToString("hh\\:mm\\:ss");
-                });
-            }
-            if (this.PART_Slider != null)
-            {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    this.PART_Slider.Value = newPosition;
-                });
-            }
-            if (isMoveToPoint)
-            {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    this.Preview.MediaPlayer.Time = (long)newPosition;
-                });
-            }
+                Preview.MediaPlayer.Stop();
+            });
         }
 
         private void MediaPlayer_LengthChanged(object sender, LibVLCSharp.Shared.MediaPlayerLengthChangedEventArgs e)
         {
             this.videoLength = e.Length;
             this.SetVideoTotalTime(e.Length);
+        }
+
+        private void MediaPlayer_Muted(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher?.InvokeAsync(() => IsMuted = true);
         }
 
         private void MediaPlayer_Paused(object sender, EventArgs e)
@@ -132,6 +113,23 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             });
         }
 
+        private void MediaPlayer_Unmuted(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher?.InvokeAsync(() => IsMuted = false);
+        }
+
+        private void PART_Btn_Volume_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                Preview.MediaPlayer.Mute ^= true;
+            });
+        }
+
+        private void PART_Slider_DropValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            this.SetVideoCurrentTime(e.NewValue, true);
+        }
         private void PauseButton_OnClick(object sender, RoutedEventArgs e)
         {
             Preview.MediaPlayer.Pause();
@@ -155,6 +153,30 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             Preview.MediaPlayer.Play();
         }
 
+        private void SetVideoCurrentTime(double newPosition, bool isMoveToPoint = false)
+        {
+            if (this.PART_Time_Current != null)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.PART_Time_Current.Text = TimeSpan.FromMilliseconds(newPosition).ToString("hh\\:mm\\:ss");
+                });
+            }
+            if (this.PART_Slider != null)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.PART_Slider.Value = newPosition;
+                });
+            }
+            if (isMoveToPoint)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.Preview.MediaPlayer.Time = (long)newPosition;
+                });
+            }
+        }
         private void SetVideoTotalTime(long newLength)
         {
             if (this.PART_Time_Total != null)
@@ -186,16 +208,9 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             Preview.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
             Preview.MediaPlayer.PositionChanged += MediaPlayer_PositionChanged;
             Preview.MediaPlayer.EndReached += MediaPlayer_EndReached;
+            Preview.MediaPlayer.Unmuted += MediaPlayer_Unmuted;
+            Preview.MediaPlayer.Muted += MediaPlayer_Muted;
         }
-
-        private void MediaPlayer_EndReached(object sender, EventArgs e)
-        {
-            Application.Current.Dispatcher.InvokeAsync(() =>
-            {
-                Preview.MediaPlayer.Stop();
-            });
-        }
-
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             Topmost = false;
@@ -212,12 +227,6 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             {
                 DragMove();
             }
-        }
-
-        private void PART_Btn_Volume_Click(object sender, RoutedEventArgs e)
-        {
-            Preview.MediaPlayer.ToggleMute();
-            IsMuted = Preview.MediaPlayer.Mute;
         }
     }
 }
