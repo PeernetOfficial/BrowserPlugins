@@ -42,6 +42,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             get { return (int)GetValue(VolumeProperty); }
             set { SetValue(VolumeProperty, value); }
         }
+
         private static void VolumeChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             FileStreamWindow videoPlayer = d as FileStreamWindow;
@@ -50,6 +51,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
                 videoPlayer.Preview.MediaPlayer.Volume = (int)e.NewValue;
             }
         }
+
         private void Close_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
@@ -157,26 +159,27 @@ namespace Peernet.Browser.Plugins.MediaPlayer
         {
             if (this.PART_Time_Current != null)
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                Application.Current.Dispatcher.BeginInvoke(() =>
                 {
                     this.PART_Time_Current.Text = TimeSpan.FromMilliseconds(newPosition).ToString("hh\\:mm\\:ss");
                 });
             }
             if (this.PART_Slider != null)
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                Application.Current.Dispatcher.BeginInvoke(() =>
                 {
                     this.PART_Slider.Value = newPosition;
                 });
             }
             if (isMoveToPoint)
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                Application.Current.Dispatcher.BeginInvoke(() =>
                 {
                     this.Preview.MediaPlayer.Time = (long)newPosition;
                 });
             }
         }
+
         private void SetVideoTotalTime(long newLength)
         {
             if (this.PART_Time_Total != null)
@@ -211,6 +214,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             Preview.MediaPlayer.Unmuted += MediaPlayer_Unmuted;
             Preview.MediaPlayer.Muted += MediaPlayer_Muted;
         }
+
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             Topmost = false;
