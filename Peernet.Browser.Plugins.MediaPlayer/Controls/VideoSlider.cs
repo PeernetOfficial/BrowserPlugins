@@ -84,6 +84,18 @@ namespace Peernet.Browser.Plugins.MediaPlayer.Controls
             this.RaiseEvent(arg);
         }
 
+        protected override void OnPreviewMouseMove(MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                OnPreviewMouseLeftButtonDown(new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left)
+                {
+                    RoutedEvent = UIElement.PreviewMouseLeftButtonDownEvent,
+                    Source = e.Source
+                });
+            }
+        }
+
         private void AduFlatSilder_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (IsVideoVisibleWhenPressThumb && _thumbIsPressed)

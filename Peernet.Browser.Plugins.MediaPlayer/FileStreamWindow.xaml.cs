@@ -45,8 +45,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
 
         private static void VolumeChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FileStreamWindow videoPlayer = d as FileStreamWindow;
-            if (e.NewValue != null && videoPlayer != null && videoPlayer.Preview != null)
+            if (e.NewValue != null && d is FileStreamWindow videoPlayer && videoPlayer.Preview != null)
             {
                 videoPlayer.Preview.MediaPlayer.Volume = (int)e.NewValue;
             }
