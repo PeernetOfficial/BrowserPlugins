@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>None</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="devexpress.wpf.pdfviewer" Version="21.2.6" />
+		<PackageReference Include="DevExpress.Wpf.Spreadsheet" Version="21.2.6" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0">
+			<Aliases>DependencyInjection</Aliases>
+		</PackageReference>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Reference Include="Peernet.SDK">
+			<HintPath>..\lib\Peernet.SDK.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+</Project>
