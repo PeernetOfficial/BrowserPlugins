@@ -1,10 +1,9 @@
-﻿using Peernet.Browser.Plugins.ImageViewer.ViewModels.Parameters;
+﻿using Peernet.Browser.Plugins.ByteViewer.ViewModels.Parameters;
 using Peernet.SDK.Models.Presentation;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 
-namespace Peernet.Browser.Plugins.ImageViewer.ViewModels
+namespace Peernet.Browser.Plugins.ByteViewer.ViewModels
 {
     public class ByteViewerViewModel : GenericViewModelBase<ByteViewerViewModelParameter>
     {

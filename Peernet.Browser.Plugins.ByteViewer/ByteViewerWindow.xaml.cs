@@ -1,15 +1,14 @@
-﻿using Peernet.Browser.Plugins.ImageViewer.ViewModels;
+﻿using Peernet.Browser.Plugins.ByteViewer.ViewModels;
+using Peernet.SDK.WPF;
 using System;
-using System.Reflection;
-using System.Windows;
 using System.Windows.Input;
 
-namespace Peernet.Browser.Plugins.ImageViewer
+namespace Peernet.Browser.Plugins.ByteViewer
 {
     /// <summary>
     /// Interaction logic for TextViewerWindow.xaml
     /// </summary>
-    public partial class ByteViewerWindow : Window
+    public partial class ByteViewerWindow : PeernetWindow
     {
         public ByteViewerWindow(ByteViewerViewModel imageViewerViewModel)
         {
@@ -27,11 +26,6 @@ namespace Peernet.Browser.Plugins.ImageViewer
         private void ByteViewerWindow_Closed(object sender, EventArgs e)
         {
             ((ByteViewerViewModel)DataContext).FileStream?.Dispose();
-        }
-
-        private void Close_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)

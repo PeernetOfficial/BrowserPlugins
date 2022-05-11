@@ -1,4 +1,5 @@
 ﻿using Peernet.Browser.Plugins.MediaPlayer.ViewModels;
+using Peernet.SDK.WPF;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -8,7 +9,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
     /// <summary>
     /// Interaction logic for FileStreamWindow.xaml
     /// </summary>
-    public partial class FileStreamWindow : Window
+    public partial class FileStreamWindow : PeernetWindow
     {
         public static readonly DependencyProperty IsMutedProperty =
             DependencyProperty.Register("IsMuted", typeof(bool), typeof(FileStreamWindow), new PropertyMetadata(false));
@@ -49,11 +50,6 @@ namespace Peernet.Browser.Plugins.MediaPlayer
             {
                 videoPlayer.Preview.MediaPlayer.Volume = (int)e.NewValue;
             }
-        }
-
-        private void Close_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
 
         private void MediaPlayer_EndReached(object sender, EventArgs e)

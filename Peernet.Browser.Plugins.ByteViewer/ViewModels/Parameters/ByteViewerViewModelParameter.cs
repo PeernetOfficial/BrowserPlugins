@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Peernet.Browser.Plugins.ImageViewer.ViewModels.Parameters
+namespace Peernet.Browser.Plugins.ByteViewer.ViewModels.Parameters
 {
     public class ByteViewerViewModelParameter
     {

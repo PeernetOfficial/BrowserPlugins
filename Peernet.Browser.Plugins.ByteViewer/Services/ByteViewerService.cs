@@ -1,11 +1,11 @@
-﻿using Peernet.Browser.Plugins.ImageViewer.ViewModels;
-using Peernet.Browser.Plugins.ImageViewer.ViewModels.Parameters;
+﻿using Peernet.Browser.Plugins.ByteViewer.ViewModels;
+using Peernet.Browser.Plugins.ByteViewer.ViewModels.Parameters;
 using Peernet.SDK.Client.Clients;
 using Peernet.SDK.Models.Domain.Common;
 using Peernet.SDK.Models.Plugins;
 using System.Threading.Tasks;
 
-namespace Peernet.Browser.Plugins.ImageViewer.Services
+namespace Peernet.Browser.Plugins.ByteViewer.Services
 {
     public class ByteViewerService : IPlayButtonPlug
     {

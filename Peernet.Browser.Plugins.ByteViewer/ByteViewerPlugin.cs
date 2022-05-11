@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Peernet.Browser.Plugins.ImageViewer.Services;
+using Peernet.Browser.Plugins.ByteViewer.Services;
 using Peernet.SDK.Models.Plugins;
 
 namespace Peernet.Browser.Plugins.ImageViewer

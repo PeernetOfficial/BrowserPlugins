@@ -1,15 +1,14 @@
 ﻿using Peernet.Browser.Plugins.ImageViewer.ViewModels;
+using Peernet.SDK.WPF;
 using System;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace Peernet.Browser.Plugins.ImageViewer
 {
     /// <summary>
     /// Interaction logic for TextViewerWindow.xaml
     /// </summary>
-    public partial class ImageViewerWindow : Window
+    public partial class ImageViewerWindow : PeernetWindow
     {
         public ImageViewerWindow(ImageViewerViewModel imageViewerViewModel)
         {
@@ -18,11 +17,6 @@ namespace Peernet.Browser.Plugins.ImageViewer
             InitializeComponent();
             MouseDown += Window_MouseDown;
             DataContext = imageViewerViewModel;
-        }
-
-        private void Close_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)

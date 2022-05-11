@@ -1,6 +1,6 @@
 ﻿using Peernet.Browser.Plugins.TextViewer.ViewModels;
+using Peernet.SDK.WPF;
 using System;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Peernet.Browser.Plugins.TextViewer
@@ -8,7 +8,7 @@ namespace Peernet.Browser.Plugins.TextViewer
     /// <summary>
     /// Interaction logic for TextViewerWindow.xaml
     /// </summary>
-    public partial class TextViewerWindow : Window
+    public partial class TextViewerWindow : PeernetWindow
     {
         public TextViewerWindow(TextViewerViewModel textViewerViewModel)
         {
@@ -17,11 +17,6 @@ namespace Peernet.Browser.Plugins.TextViewer
             InitializeComponent();
             MouseDown += Window_MouseDown;
             DataContext = textViewerViewModel;
-        }
-
-        private void Close_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)

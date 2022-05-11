@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peernet.Browser.Plugins.Ima
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peernet.Browser.Plugins.ByteViewer", "Peernet.Browser.Plugins.ByteViewer\Peernet.Browser.Plugins.ByteViewer.csproj", "{42B56A80-2256-47B9-A2CB-A4B2AFD78310}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peernet.Browser.Plugins.HTMLViewer", "Peernet.Browser.Plugins.HTMLViewer\Peernet.Browser.Plugins.HTMLViewer.csproj", "{FC606416-2650-459D-82CE-5BE9EDE4F23D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{42B56A80-2256-47B9-A2CB-A4B2AFD78310}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42B56A80-2256-47B9-A2CB-A4B2AFD78310}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42B56A80-2256-47B9-A2CB-A4B2AFD78310}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC606416-2650-459D-82CE-5BE9EDE4F23D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC606416-2650-459D-82CE-5BE9EDE4F23D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC606416-2650-459D-82CE-5BE9EDE4F23D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC606416-2650-459D-82CE-5BE9EDE4F23D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
