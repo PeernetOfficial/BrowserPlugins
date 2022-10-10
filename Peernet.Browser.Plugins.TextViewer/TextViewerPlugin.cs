@@ -6,7 +6,7 @@ namespace Peernet.Browser.Plugins.TextViewer
 {
     public class TextViewerPlugin : IPlugin
     {
-        public void Load(ServiceCollection services)
+        public void Load(IServiceCollection services)
         {
             services.AddSingleton<IPlayButtonPlug, TextViewerService>();
         }

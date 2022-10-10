@@ -7,7 +7,7 @@ namespace Peernet.Browser.Plugins.MediaPlayer
 {
     public class MediaPlayerPlugin : IPlugin
     {
-        public void Load(ServiceCollection services)
+        public void Load(IServiceCollection services)
         {
             services.AddSingleton<IPlayButtonPlug, MediaPlayerService>();
             Core.Initialize();

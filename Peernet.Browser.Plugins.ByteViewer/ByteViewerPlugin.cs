@@ -6,7 +6,7 @@ namespace Peernet.Browser.Plugins.ImageViewer
 {
     public class ByteViewerPlugin : IPlugin
     {
-        public void Load(ServiceCollection services)
+        public void Load(IServiceCollection services)
         {
             services.AddSingleton<IPlayButtonPlug, ByteViewerService>();
         }
