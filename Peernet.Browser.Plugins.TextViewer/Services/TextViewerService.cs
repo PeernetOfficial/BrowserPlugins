@@ -30,7 +30,7 @@ namespace Peernet.Browser.Plugins.TextViewer.Services
 
         public bool IsSupported(ApiFile file)
         {
-            if (file?.Type is LowLevelFileType.Text)
+            if (file?.Type is LowLevelFileType.Text && file?.Format is not HighLevelFileType.HTML)
             {
                 return true;
             }
