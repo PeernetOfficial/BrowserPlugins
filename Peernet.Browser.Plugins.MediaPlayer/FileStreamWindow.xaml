@@ -64,7 +64,7 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="30" />
             </Grid.ColumnDefinitions>
-            <controls:VideoSlider x:Name="PART_Slider"
+            <sdk:VideoSlider x:Name="PART_Slider"
                                   Grid.Row="0"
                                   Grid.Column="1"
                                   Grid.ColumnSpan="3"
@@ -131,7 +131,7 @@
                             </controls:PathButton.Style>
                         </controls:PathButton>
                     </Grid>
-                    <controls:VideoSlider x:Name="PART_Volume_Slider"
+                    <sdk:VideoSlider x:Name="PART_Volume_Slider"
                                           Foreground="{DynamicResource icon_normal_color}"
                                           Margin="10,0"
                                           VerticalAlignment="Stretch"
