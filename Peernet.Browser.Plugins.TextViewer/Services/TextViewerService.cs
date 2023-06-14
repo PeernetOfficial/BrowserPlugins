@@ -3,6 +3,7 @@ using Peernet.Browser.Plugins.TextViewer.ViewModels.Parameters;
 using Peernet.SDK.Client.Clients;
 using Peernet.SDK.Models.Domain.Common;
 using Peernet.SDK.Models.Plugins;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace Peernet.Browser.Plugins.TextViewer.Services
         public async Task Execute(ApiFile file)
         {
             var viewModel = new TextViewerViewModel();
-            using var stream = await fileClient.Read(file);
+            var stream = await fileClient.Read(Convert.ToHexString(file.Hash), Convert.ToHexString(file.NodeId));
             var reader = new StreamReader(stream);
             var content = await reader.ReadToEndAsync();
             await viewModel.Prepare(new TextViewerViewModelParameter { Content = content, Title = file.Name });
